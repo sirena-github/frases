@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #generarFrase {
+            background-color: #5d9fe9; /* Azul claro */
+            color: #4e4b4b; /* Color de texto */
+            border: 1px solid #68d339; /* Borde delgado */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 5px 20px; /* Espacio interno */
+            font-size: 16px; /* Tamaño de fuente */
+            font-family: 'Arial Rounded MT Bold', sans-serif; 
+        }
+    </style>
+</head>
+<body>
+    
+    <button id="generarFrase">Generar</button>
+    <p id="fraseGenerada"></p>
+
+    <script>
+        // Array para almacenar las frases generadas
+        let frasesGeneradas = [];
+
+        function generarFrase() {
+            // Palabras para generar frases
+            let verbos = ['siente', 'vive', 'sueña', 'anhela', 'decreta', 'piensa', 'crea', 'disfruta', 'experimenta', 'imagina', 'explora', 'busca', 'encuentra', 'comparte', 'aprende', 'enseña', 'inspira', 'transforma', 'avanza', 'desarrolla', 'logra', 'conquista', 'construye', 'disfruta', 'prospera', 'comunica', 'actúa', 'reacciona', 'enciende', 'refleja', 'eleva', , 'respira', 'asciende', 'ama', 'empodera', 'continua', 'libera', 'expresa', 'acepta', 'crece', 'florece', 'alcanza', 'trasciende', 'expande'];
+            let objetos = ["el-exito", "la-felicidad", "la-paz", "la-abundancia", "el-amor", "el-conocimiento", "el-propósito", "la-creatividad", "el-liderazgo", "la-salud", "el-bienestar", "el-equilibrio", "la-gratitud", "la-prosperidad", "la-libertad", "la-esperanza", "la-inspiración", "la-armonía", "la-confianza", "la-alegría", "la-compasión", "el-servicio", "la-belleza", "la-solidaridad", "la-amistad", "el-camino", "la-vida", "el-éxito", "la-felicidad", "el-mundo"];
+            let caracteresEspeciales = ['!', '@', '#', '$', '%', '&', '*', '+', '.', '/'];
+
+            // Seleccionar palabras aleatorias
+            let verbo = verbos[Math.floor(Math.random() * verbos.length)];
+
+            // Reemplazar 'a' minúscula por '4'
+            verbo = verbo.replace(/a/g, '4');
+
+            // Reemplazar 'e' minúscula por '3'
+            verbo = verbo.replace(/e/g, '3');
+
+            let objeto = objetos[Math.floor(Math.random() * objetos.length)];
+            let caracterEspecial = caracteresEspeciales[Math.floor(Math.random() * caracteresEspeciales.length)];
+
+            // Convertir una letra en mayúscula
+            let indiceMayuscula = Math.floor(Math.random() * (verbo.length + objeto.length + 1)); // +1 para incluir el carácter especial
+            if (indiceMayuscula < verbo.length) {
+                verbo = verbo.substring(0, indiceMayuscula) + verbo.charAt(indiceMayuscula).toUpperCase() + verbo.substring(indiceMayuscula + 1);
+            } else if (indiceMayuscula < verbo.length + objeto.length) {
+                let index = indiceMayuscula - verbo.length;
+                objeto = objeto.substring(0, index) + objeto.charAt(index).toUpperCase() + objeto.substring(index + 1);
+            } else {
+                caracterEspecial = caracterEspecial.toUpperCase();
+            }
+
+            // Construir la frase sin espacios
+            let frase = verbo + objeto + caracterEspecial;
+
+            // Verificar si la frase generada ya existe en la lista de frases generadas
+            if (frasesGeneradas.includes(frase)) {
+                // Si la frase ya existe, generar una nueva frase
+                return generarFrase();
+            } else {
+                // Si la frase no existe, agregarla a la lista de frases generadas y devolverla
+                frasesGeneradas.push(frase);
+                return frase;
+            }
+        }
+
+        document.getElementById("generarFrase").addEventListener("click", function() {
+            // Generar una nueva frase y mostrarla en el párrafo con id "fraseGenerada"
+            let fraseGenerada = generarFrase();
+            document.getElementById("fraseGenerada").innerText = "Key: " + " " + fraseGenerada;
+        });
+    </script>
+</body>
+    <!-- 50 verbosx30objetosx9caracteres = 13.500 contraseñas unicas -->
+</html>
